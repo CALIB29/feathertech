@@ -1,0 +1,157 @@
+/* General Body Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #43cea2, #185a9d);
+    color: white;
+}
+
+/* Container for centered content with Blur Effect */
+.container {
+    max-width: 500px;
+    width: 90%;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-sizing: border-box;
+}
+
+/* Adjusted Header Styling */
+h1 {
+    color: red;
+    text-align: center;
+    margin-top: 10px; /* Move it down a little */
+    font-weight: bold;
+}
+
+/* Error Message Styling */
+.error-message {
+    color: red;
+    text-align: center;
+    font-weight: bold;
+    margin-top: -10px; /* Reduce space if needed */
+    margin-bottom: 15px; /* Ensure spacing */
+    width: 100%;
+}
+
+/* Ensure proper spacing */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.container h1 {
+    order: 2; /* Ensures it appears after inputs */
+}
+
+/* Input Field Styling */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+select {
+    padding: 14px; /* Improved padding */
+    font-size: 16px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    transition: border 0.3s;
+    background-color: rgba(255, 255, 255, 0.7);
+    width: 90%; /* Prevents input from touching container edges */
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Ensure select matches input fields */
+select {
+    appearance: none;
+    background-color: white;
+    cursor: pointer;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gray"><path d="M7 10l5 5 5-5H7z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    padding-right: 40px;
+}
+
+/* Focus Effect on Inputs */
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+select:focus {
+    border: 1px solid #43cea2;
+}
+
+/* Submit Button Styling */
+button {
+    padding: 12px;
+    font-size: 16px;
+    background-color: #43cea2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 90%;
+    max-width: 100%;
+}
+
+button:hover {
+    background-color: #3cb38b;
+}
+
+/* Links for Login and Register */
+a {
+    text-decoration: none;
+    color: #43cea2;
+    font-size: 16px;
+    margin-top: 15px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Error message styling */
+.error-message {
+    color: red;
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+        padding: 25px;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    select {
+        padding: 12px;
+        font-size: 14px;
+        margin-bottom: 22px;
+        width: 85%;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 12px;
+        width: 85%;
+    }
+}

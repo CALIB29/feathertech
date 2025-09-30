@@ -1,0 +1,147 @@
+[27-Mar-2025 13:59:54 America/New_York] [2025-03-27 13:59:54] Invalid time format (HH:MM required)
+{"animal_id":"13","vaccination_type":"Infectious Bronchitis","vaccination_date":"2025-03-27","vaccination_time":"01:54:00","notes":"Vaccination update"}
+
+[27-Mar-2025 14:01:25 America/New_York] [2025-03-27 14:01:25] Database error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_at' in 'field list'
+{"animal_id":"13","vaccination_type":"Infectious Bronchitis","vaccination_date":"2025-03-27","vaccination_time":"03:30","notes":"Vaccination update"}
+
+[27-Mar-2025 14:01:25 America/New_York] [2025-03-27 14:01:25] A database error occurred. Our team has been notified.
+{"animal_id":"13","vaccination_type":"Infectious Bronchitis","vaccination_date":"2025-03-27","vaccination_time":"03:30","notes":"Vaccination update"}
+
+[27-Mar-2025 14:02:04 America/New_York] [2025-03-27 14:02:04] Database error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_at' in 'field list'
+{"animal_id":"13","vaccination_type":"Marek's Disease","vaccination_date":"2025-03-27","vaccination_time":"05:40","notes":""}
+
+[27-Mar-2025 14:02:04 America/New_York] [2025-03-27 14:02:04] A database error occurred. Our team has been notified.
+{"animal_id":"13","vaccination_type":"Marek's Disease","vaccination_date":"2025-03-27","vaccination_time":"05:40","notes":""}
+
+[27-Mar-2025 14:03:17 America/New_York] [2025-03-27 14:03:17] Database error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_at' in 'field list'
+{"animal_id":"23","vaccination_type":"Avian Influenza","vaccination_date":"2025-03-27","vaccination_time":"08:20","notes":"Vaccination update"}
+
+[27-Mar-2025 14:03:17 America/New_York] [2025-03-27 14:03:17] A database error occurred. Our team has been notified.
+{"animal_id":"23","vaccination_type":"Avian Influenza","vaccination_date":"2025-03-27","vaccination_time":"08:20","notes":"Vaccination update"}
+
+[27-Mar-2025 14:39:08 America/New_York] [2025-03-27 14:39:08] Database error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_at' in 'field list'
+{"animal_id":"15","vaccination_type":"Fowl Pox","vaccination_date":"2025-03-27","vaccination_time":"10:39","notes":"Vaccination "}
+
+[27-Mar-2025 14:39:08 America/New_York] [2025-03-27 14:39:08] A database error occurred. Our team has been notified.
+{"animal_id":"15","vaccination_type":"Fowl Pox","vaccination_date":"2025-03-27","vaccination_time":"10:39","notes":"Vaccination "}
+
+[27-Mar-2025 14:48:43 America/New_York] [2025-03-27 14:48:43] Database error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_at' in 'field list'
+{"animal_id":"19","vaccination_type":"Avian Influenza","vaccination_date":"2025-03-27","vaccination_time":"10:55","notes":"Vaccination update"}
+
+[27-Mar-2025 14:48:43 America/New_York] [2025-03-27 14:48:43] A database error occurred. Our team has been notified.
+{"animal_id":"19","vaccination_type":"Avian Influenza","vaccination_date":"2025-03-27","vaccination_time":"10:55","notes":"Vaccination update"}
+
+[27-Mar-2025 23:34:29 America/New_York] [2025-03-27 23:34:29] Database error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_at' in 'field list'
+{"animal_id":"18","vaccination_type":"Infectious Bronchitis","vaccination_date":"2025-03-24","vaccination_time":"15:30","notes":""}
+
+[27-Mar-2025 23:34:29 America/New_York] [2025-03-27 23:34:29] A database error occurred. Our team has been notified.
+{"animal_id":"18","vaccination_type":"Infectious Bronchitis","vaccination_date":"2025-03-24","vaccination_time":"15:30","notes":""}
+
+[27-Mar-2025 23:35:07 America/New_York] [2025-03-27 23:35:07] Database error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_at' in 'field list'
+{"animal_id":"18","vaccination_type":"Fowl Pox","vaccination_date":"2025-03-24","vaccination_time":"16:30","notes":""}
+
+[27-Mar-2025 23:35:07 America/New_York] [2025-03-27 23:35:07] A database error occurred. Our team has been notified.
+{"animal_id":"18","vaccination_type":"Fowl Pox","vaccination_date":"2025-03-24","vaccination_time":"16:30","notes":""}
+
+[28-Mar-2025 06:13:08 America/New_York] [2025-03-28 06:13:08] Database error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_at' in 'field list'
+{"animal_id":"15","vaccination_type":"Infectious Bronchitis","vaccination_date":"2025-03-29","vaccination_time":"07:39","notes":""}
+
+[28-Mar-2025 06:13:08 America/New_York] [2025-03-28 06:13:08] A database error occurred. Our team has been notified.
+{"animal_id":"15","vaccination_type":"Infectious Bronchitis","vaccination_date":"2025-03-29","vaccination_time":"07:39","notes":""}
+
+[28-Mar-2025 23:47:14 America/New_York] [2025-03-28 23:47:14] Invalid time format (HH:MM required)
+{"animal_id":"15","vaccination_type":"Fowl Pox","vaccination_date":"2025-03-29","vaccination_time":"07:39:00","notes":""}
+
+[28-Mar-2025 23:47:31 America/New_York] [2025-03-28 23:47:31] Database error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_at' in 'field list'
+{"animal_id":"15","vaccination_type":"Fowl Pox","vaccination_date":"2025-03-29","vaccination_time":"15:39","notes":""}
+
+[28-Mar-2025 23:47:31 America/New_York] [2025-03-28 23:47:31] A database error occurred. Our team has been notified.
+{"animal_id":"15","vaccination_type":"Fowl Pox","vaccination_date":"2025-03-29","vaccination_time":"15:39","notes":""}
+
+[29-Mar-2025 00:17:56 America/New_York] [2025-03-29 00:17:56] Database error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_at' in 'field list'
+{"animal_id":"22","vaccination_type":"Fowl Pox","vaccination_date":"2025-03-30","vaccination_time":"08:17","notes":""}
+
+[29-Mar-2025 00:17:56 America/New_York] [2025-03-29 00:17:56] A database error occurred. Our team has been notified.
+{"animal_id":"22","vaccination_type":"Fowl Pox","vaccination_date":"2025-03-30","vaccination_time":"08:17","notes":""}
+
+[29-Mar-2025 02:23:10 America/New_York] [2025-03-29 02:23:10] Database error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_at' in 'field list'
+{"animal_id":"15","vaccination_type":"Marek's Disease","vaccination_date":"2025-03-31","vaccination_time":"09:39","notes":""}
+
+[29-Mar-2025 02:23:10 America/New_York] [2025-03-29 02:23:10] A database error occurred. Our team has been notified.
+{"animal_id":"15","vaccination_type":"Marek's Disease","vaccination_date":"2025-03-31","vaccination_time":"09:39","notes":""}
+
+[29-Mar-2025 02:45:06 America/New_York] [2025-03-29 02:45:06] Invalid time format (HH:MM required)
+{"animal_id":"15","vaccination_type":"Avian Influenza","vaccination_date":"2025-03-31","vaccination_time":"09:39:00","notes":"Vaccination schedule "}
+
+[29-Mar-2025 02:45:23 America/New_York] [2025-03-29 02:45:23] Database error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_at' in 'field list'
+{"animal_id":"15","vaccination_type":"Avian Influenza","vaccination_date":"2025-03-31","vaccination_time":"10:39","notes":"Vaccination schedule "}
+
+[29-Mar-2025 02:45:23 America/New_York] [2025-03-29 02:45:23] A database error occurred. Our team has been notified.
+{"animal_id":"15","vaccination_type":"Avian Influenza","vaccination_date":"2025-03-31","vaccination_time":"10:39","notes":"Vaccination schedule "}
+
+[29-Mar-2025 02:47:16 America/New_York] [2025-03-29 02:47:16] Database error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_at' in 'field list'
+{"animal_id":"15","vaccination_type":"Newcastle Disease","vaccination_date":"2025-03-31","vaccination_time":"13:39","notes":""}
+
+[29-Mar-2025 02:47:16 America/New_York] [2025-03-29 02:47:16] A database error occurred. Our team has been notified.
+{"animal_id":"15","vaccination_type":"Newcastle Disease","vaccination_date":"2025-03-31","vaccination_time":"13:39","notes":""}
+
+[29-Mar-2025 04:04:10 America/New_York] [2025-03-29 04:04:10] Invalid time format (HH:MM required)
+{"animal_id":"15","vaccination_type":"Fowl Pox","vaccination_date":"2025-03-31","vaccination_time":"13:39:00","notes":""}
+
+[29-Mar-2025 04:04:20 America/New_York] [2025-03-29 04:04:20] Database error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_at' in 'field list'
+{"animal_id":"15","vaccination_type":"Fowl Pox","vaccination_date":"2025-03-31","vaccination_time":"14:39","notes":""}
+
+[29-Mar-2025 04:04:20 America/New_York] [2025-03-29 04:04:20] A database error occurred. Our team has been notified.
+{"animal_id":"15","vaccination_type":"Fowl Pox","vaccination_date":"2025-03-31","vaccination_time":"14:39","notes":""}
+
+[29-Mar-2025 04:26:17 America/New_York] [2025-03-29 04:26:17] Database error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_at' in 'field list'
+{"animal_id":"15","vaccination_type":"Infectious Bronchitis","vaccination_date":"2025-03-31","vaccination_time":"09:39","notes":""}
+
+[29-Mar-2025 04:26:17 America/New_York] [2025-03-29 04:26:17] A database error occurred. Our team has been notified.
+{"animal_id":"15","vaccination_type":"Infectious Bronchitis","vaccination_date":"2025-03-31","vaccination_time":"09:39","notes":""}
+
+[29-Mar-2025 08:48:51 America/New_York] [2025-03-29 08:48:51] Database error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_at' in 'field list'
+{"animal_id":"13","vaccination_type":"Newcastle Disease","vaccination_date":"2025-03-31","vaccination_time":"07:40","notes":""}
+
+[29-Mar-2025 08:48:51 America/New_York] [2025-03-29 08:48:51] A database error occurred. Our team has been notified.
+{"animal_id":"13","vaccination_type":"Newcastle Disease","vaccination_date":"2025-03-31","vaccination_time":"07:40","notes":""}
+
+[30-Mar-2025 09:47:34 America/New_York] [2025-03-30 09:47:34] Database error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_at' in 'field list'
+{"animal_id":"24","vaccination_type":"Fowl Pox","vaccination_date":"2025-10-20","vaccination_time":"09:00","notes":""}
+
+[30-Mar-2025 09:47:34 America/New_York] [2025-03-30 09:47:34] A database error occurred. Our team has been notified.
+{"animal_id":"24","vaccination_type":"Fowl Pox","vaccination_date":"2025-10-20","vaccination_time":"09:00","notes":""}
+
+[31-Mar-2025 02:21:30 America/New_York] [2025-03-31 02:21:30] Database error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_at' in 'field list'
+{"animal_id":"13","vaccination_type":"Fowl Pox","vaccination_date":"2025-04-02","vaccination_time":"10:40","notes":""}
+
+[31-Mar-2025 02:21:30 America/New_York] [2025-03-31 02:21:30] A database error occurred. Our team has been notified.
+{"animal_id":"13","vaccination_type":"Fowl Pox","vaccination_date":"2025-04-02","vaccination_time":"10:40","notes":""}
+
+[31-Mar-2025 03:40:17 America/New_York] [2025-03-31 03:40:17] Invalid time format (HH:MM required)
+{"animal_id":"13","vaccination_type":"Infectious Bronchitis","vaccination_date":"2025-04-02","vaccination_time":"10:40:00","notes":""}
+
+[31-Mar-2025 13:56:44 America/New_York] [2025-03-31 13:56:44] Database error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_at' in 'field list'
+{"animal_id":"13","vaccination_type":"Infectious Bronchitis","vaccination_date":"2025-04-03","vaccination_time":"08:40","notes":""}
+
+[31-Mar-2025 13:56:44 America/New_York] [2025-03-31 13:56:44] A database error occurred. Our team has been notified.
+{"animal_id":"13","vaccination_type":"Infectious Bronchitis","vaccination_date":"2025-04-03","vaccination_time":"08:40","notes":""}
+
+[31-Mar-2025 14:14:34 America/New_York] [2025-03-31 14:14:34] Database error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_at' in 'field list'
+{"animal_id":"25","vaccination_type":"Avian Influenza","vaccination_date":"2025-04-03","vaccination_time":"08:14","notes":""}
+
+[31-Mar-2025 14:14:34 America/New_York] [2025-03-31 14:14:34] A database error occurred. Our team has been notified.
+{"animal_id":"25","vaccination_type":"Avian Influenza","vaccination_date":"2025-04-03","vaccination_time":"08:14","notes":""}
+
+[01-Apr-2025 01:17:16 America/New_York] [2025-04-01 01:17:16] Database error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_at' in 'field list'
+{"animal_id":"13","vaccination_type":"Fowl Pox","vaccination_date":"2025-04-04","vaccination_time":"09:40","notes":""}
+
+[01-Apr-2025 01:17:16 America/New_York] [2025-04-01 01:17:16] A database error occurred. Our team has been notified.
+{"animal_id":"13","vaccination_type":"Fowl Pox","vaccination_date":"2025-04-04","vaccination_time":"09:40","notes":""}
+
+[01-Apr-2025 23:06:58 America/New_York] [2025-04-01 23:06:58] Database error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'created_at' in 'field list'
+{"animal_id":"23","vaccination_type":"Newcastle Disease","vaccination_date":"2025-04-04","vaccination_time":"09:20","notes":""}
+
+[01-Apr-2025 23:06:58 America/New_York] [2025-04-01 23:06:58] A database error occurred. Our team has been notified.
+{"animal_id":"23","vaccination_type":"Newcastle Disease","vaccination_date":"2025-04-04","vaccination_time":"09:20","notes":""}
+

@@ -1,0 +1,37 @@
+; PHP Configuration Override for FeatherTech
+; Place this file in your public directory (htdocs) to override default PHP settings
+
+[PHP]
+; File Upload Settings
+upload_max_filesize = 50M
+post_max_size = 55M
+max_file_uploads = 20
+
+; Memory Settings
+memory_limit = 256M
+
+; Execution Time
+max_execution_time = 300
+
+; Input Time
+max_input_time = 300
+
+; Buffer Sizes
+output_buffering = 4096
+max_input_vars = 10000
+
+; Error Reporting (Development)
+error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT
+display_errors = On
+display_startup_errors = On
+log_errors = On
+error_log = "php_errors.log"
+
+; Security Settings
+expose_php = Off
+session.cookie_httponly = On
+session.cookie_secure = Off
+session.use_strict_mode = On
+
+; Date/Time Settings
+date.timezone = "Asia/Manila"

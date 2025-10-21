@@ -38,8 +38,8 @@ try {
     if ($check === false) {
         throw new Exception('File is not an image');
     }
-    if ($_FILES['proof_image']['size'] > 50000000) { // 50MB limit
-        throw new Exception('File upload error: File is too large (server limit)');
+    if ($_FILES['proof_image']['size'] > 5000000) {
+        throw new Exception('File is too large (max 5MB)');
     }
     $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
     if (!in_array($imageFileType, ['jpg', 'jpeg', 'png', 'gif'])) {

@@ -45,9 +45,9 @@ sendVaccinationCompleteNotification($pdo, $notificationId);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Handle form submission
     try {
-        // Validate and upload proof image
+        // Validate and upload proof image/video
         if (empty($_FILES['proof_image']['name'])) {
-            throw new Exception("Proof image is required");
+            throw new Exception("Proof image/video is required");
         }
 
         $uploadDir = 'assets/vaccination_proofs/';
@@ -58,21 +58,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $fileName = uniqid('vaccine_') . '_' . basename($_FILES['proof_image']['name']);
         $targetFile = $uploadDir . $fileName;
 
-        // Check if image file is a actual image
-        $check = getimagesize($_FILES['proof_image']['tmp_name']);
-        if ($check === false) {
-            throw new Exception("File is not an image");
+        // Check file size (500MB max)
+        $maxFileSize = 500 * 1024 * 1024; // 500MB in bytes
+        if ($_FILES['proof_image']['size'] > $maxFileSize) {
+            throw new Exception("File is too large (max 500MB)");
         }
 
-        // Check file size (5MB max)
-        if ($_FILES['proof_image']['size'] > 5000000) {
-            throw new Exception("File is too large (max 5MB)");
-        }
-
-        // Allow certain file formats
+        // Allow certain file formats (images and videos)
         $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
-        if (!in_array($imageFileType, ['jpg', 'jpeg', 'png', 'gif'])) {
-            throw new Exception("Only JPG, JPEG, PNG & GIF files are allowed");
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'avi', 'mov', 'wmv', 'webm'];
+        if (!in_array($imageFileType, $allowedExtensions)) {
+            throw new Exception("Only JPG, JPEG, PNG, GIF, MP4, AVI, MOV, WMV, WEBM files are allowed");
         }
 
         if (!move_uploaded_file($_FILES['proof_image']['tmp_name'], $targetFile)) {
@@ -161,10 +157,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <form method="POST" enctype="multipart/form-data">
                             <div class="mb-3">
                                 <label for="proof_image" class="form-label">
-                                    <i class="fas fa-camera me-1"></i> Vaccination Proof Image
+                                    <i class="fas fa-camera me-1"></i> Vaccination Proof (Image/Video)
                                 </label>
                                 <input class="form-control" type="file" id="proof_image" name="proof_image" required
-                                       accept="image/*" capture="environment">
+                                       accept="image/*,video/*" capture="environment">
                                 <img id="proofPreview" src="#" class="proof-preview" alt="Proof preview">
                             </div>
 
@@ -191,7 +187,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <script>
-        // Preview image before upload
+        // Preview image/video before upload
         document.getElementById('proof_image').addEventListener('change', function(e) {
             const preview = document.getElementById('proofPreview');
             const file = e.target.files[0];

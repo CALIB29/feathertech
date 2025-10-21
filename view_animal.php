@@ -786,7 +786,7 @@ function getDisplayStage($animal) {
         <?php if (!$hideQrSection): ?>
         <div class="app-header position-relative">
             <h1 class="app-title">FeatherTech</h1>
-            <p class="app-subtitle">Poultry Management System</p>
+            <p class="app-subtitle">A Hybrid App Poultry Management System</p>
             <div class="poultry-id">ID: <?= htmlspecialchars($animal['id']) ?></div>
             
             <!-- Poultry theme decorations -->
@@ -825,9 +825,7 @@ function getDisplayStage($animal) {
                     '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
                 unset($_SESSION['error']);
             }
-            // Get image path - check both 'image' and 'image_path' fields
-            $imagePath = !empty($animal['image']) ? htmlspecialchars($animal['image']) : 
-                       (!empty($animal['image_path']) ? htmlspecialchars($animal['image_path']) : '');
+            $imagePath = !empty($animal['image']) ? htmlspecialchars($animal['image']) : '';
             $hasImage = $imagePath && file_exists($imagePath);
             ?>
             <div class="animal-image-wrapper position-relative d-inline-block">
@@ -836,7 +834,7 @@ function getDisplayStage($animal) {
                      class="img-fluid rounded shadow animal-profile-img <?= $hasImage ? '' : 'no-animal-img' ?>"
                      style="max-width:220px;max-height:220px;object-fit:cover;">
                 <?php if ($hasImage): ?>
-                <button class="remove-image-btn" id="deleteImageBtn" data-animal-id="<?= $animal['id'] ?>">
+                <button class="btn btn-danger btn-sm position-absolute top-0 end-0 m-2" style="border-radius:50%;" title="Remove Image" data-bs-toggle="modal" data-bs-target="#removeImageModal">
                     <i class="fas fa-trash"></i>
                 </button>
                 <?php endif; ?>
@@ -855,29 +853,7 @@ function getDisplayStage($animal) {
             </div>
         </div>
         <?php endif; ?>
-        <!-- Delete Image Confirmation Modal -->
-        <div class="modal fade" id="deleteImageModal" tabindex="-1" aria-labelledby="deleteImageModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="deleteImageModalLabel">Confirm Deletion</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Are you sure you want to delete this image? This action cannot be undone.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
-                            <span class="d-none spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
-                            Delete Image
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Remove Image Modal (Old - Keeping for reference) -->
+        <!-- Remove Image Modal -->
         <div class="modal fade" id="removeImageModal" tabindex="-1" aria-labelledby="removeImageModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -962,10 +938,10 @@ function getDisplayStage($animal) {
                         <div class="modal-body">
                             <div id="uploadAlert" class="alert d-none" role="alert"></div>
                             <div class="mb-3">
-                                <label for="animal_image" class="form-label">Select Image (JPG/PNG, max 15MB)</label>
+                                <label for="animal_image" class="form-label">Select Image (JPG/PNG)</label>
                                 <input class="form-control" type="file" id="animal_image" name="animal_image" 
                                        accept="image/jpeg, image/png, image/jpg" required>
-                                <div class="form-text">Recommended size: 800x800px, Max size: 15MB</div>
+                                <div class="form-text">Recommended size: 800x800px</div>
                             </div>
                             <div class="progress d-none" id="uploadProgress">
                                 <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
@@ -1159,7 +1135,7 @@ function getDisplayStage($animal) {
 
     <script>
     // Function to show toast message
-    function showToast(message, type = 'info', duration = 5000) {
+    function showToast(message, type = 'info') {
         const toastContainer = document.getElementById('toastContainer');
         const toast = document.createElement('div');
         

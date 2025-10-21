@@ -1175,14 +1175,6 @@ try {
                             <?= htmlspecialchars(ucfirst($type)) ?> 
                             <span class="badge bg-primary ms-2"><?= count($animalsOfType) ?></span>
                         </h4>
-                        <div class="d-flex align-items-center">
-                            <span class="badge bg-light text-dark me-2">
-                                <?= count(array_filter($animalsOfType, fn($a) => ($a['status'] ?? '') === 'Breeding')) ?> Breeding
-                            </span>
-                            <span class="badge bg-light text-dark">
-                                <?= count(array_filter($animalsOfType, fn($a) => ($a['status'] ?? '') === 'For Sale')) ?> For Sale
-                            </span>
-                        </div>
                     </div>
                     
                     <div class="collapse show" id="<?= $collapseId ?>">

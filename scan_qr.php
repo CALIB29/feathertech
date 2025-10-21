@@ -164,6 +164,9 @@ if ($task_id) {
                     <label for="proof" class="form-label">Upload Proof Photo:</label>
                     <input type="file" name="proof" id="proof" class="form-control" accept="image/*" required>
                     <div class="form-text">Upload a photo showing the vaccination was administered.</div>
+                    <div class="progress d-none mt-2" id="uploadProgress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
+                    </div>
                 </div>
 
                 <div class="mb-3">
@@ -393,6 +396,66 @@ function showError(message) {
             // Start scanner automatically
             startScanner();
         });
+
+        // Enhanced form submission with progress tracking
+document.getElementById('completionForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const form = this;
+    const formData = new FormData(form);
+    const uploadProgress = document.getElementById('uploadProgress');
+    const progressBar = uploadProgress.querySelector('.progress-bar');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    
+    // Show progress bar
+    uploadProgress.classList.remove('d-none');
+    progressBar.style.width = '0%';
+    progressBar.setAttribute('aria-valuenow', 0);
+    
+    // Disable submit button
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
+    
+    // Create XMLHttpRequest for upload with progress tracking
+    const xhr = new XMLHttpRequest();
+    
+    // Track upload progress
+    xhr.upload.addEventListener('progress', function(e) {
+        if (e.lengthComputable) {
+            const percentComplete = Math.round((e.loaded / e.total) * 100);
+            progressBar.style.width = percentComplete + '%';
+            progressBar.setAttribute('aria-valuenow', percentComplete);
+        }
+    });
+    
+    // Handle response
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                // Success - redirect to dashboard
+                window.location.href = 'dashboard.php';
+            } else {
+                // Error
+                try {
+                    const response = JSON.parse(xhr.responseText);
+                    alert('Error: ' + (response.message || 'Upload failed'));
+                } catch (e) {
+                    alert('Error: Upload failed. Please try again.');
+                }
+                
+                // Reset form
+                uploadProgress.classList.add('d-none');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
+        }
+    };
+    
+    // Send request
+    xhr.open('POST', form.action, true);
+    xhr.send(formData);
+});
     </script>
 </body>
 </html>

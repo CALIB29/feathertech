@@ -75,7 +75,7 @@ if (!isset($_FILES['animal_image']) || $_FILES['animal_image']['error'] !== UPLO
 
 $file = $_FILES['animal_image'];
 $allowed_types = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/jpg' => 'jpg'];
-$max_size = 15 * 1024 * 1024; // 15MB
+$max_size = 50 * 1024 * 1024; // 50MB for avatar images
 
 // Validate file type
 if (!array_key_exists($file['type'], $allowed_types)) {

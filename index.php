@@ -269,8 +269,8 @@
             pointer-events: none;
         }
 
-        /* 3D Egg Animation Section */
-        .spline-section {
+        /* Video Section */
+        .video-section {
             background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(10px);
             border-radius: 20px;
@@ -279,47 +279,42 @@
             text-align: center;
         }
 
-        .spline-section h2 {
+        .video-section h2 {
             font-size: 2.5rem;
             margin-bottom: 20px;
             color: var(--accent);
         }
 
-        .spline-container {
+        .video-container {
             position: relative;
             width: 100%;
-            height: 600px;
+            height: 500px; /* Increased height */
+            overflow: hidden;
             border-radius: 15px;
             margin: 20px auto;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .spline-container iframe {
+        .video-container video {
             width: 100%;
             height: 100%;
-            border: none;
-            background: transparent;
+            object-fit: cover;
         }
 
-        .spline-description {
+        .video-description {
             margin-top: 20px;
             background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
+            padding: 15px;
             border-radius: 10px;
-            text-align: center;
+            text-align: left;
         }
 
-        .spline-description h3 {
+        .video-description h3 {
             margin-bottom: 10px;
             color: var(--accent);
-            font-size: 1.8rem;
-        }
-
-        .spline-description p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 15px;
         }
 
         footer {
@@ -393,8 +388,8 @@
                 font-size: 2.5rem;
             }
             
-            .spline-container {
-                height: 400px; /* Adjusted for mobile */
+            .video-container {
+                height: 350px; /* Adjusted for mobile */
             }
         }
 
@@ -420,11 +415,11 @@
                 height: 460px;
             }
             
-            .spline-section h2 {
+            .video-section h2 {
                 font-size: 2rem;
             }
             
-            .spline-container {
+            .video-container {
                 height: 250px; /* Adjusted for small mobile */
             }
         }
@@ -466,16 +461,18 @@
             </div>
         </section>
 
-        <!-- 3D Egg Animation Section -->
-        <section class="spline-section">
-            <h2>Interactive 3D Experience</h2>
-            <div class="spline-container">
-                <iframe src='https://my.spline.design/egg-Bsaa6gSGNLnwAKBTf0DleSCr/' frameborder='0' width='100%' height='100%'></iframe>
+        <!-- Video Section -->
+        <section class="video-section">
+            <h2>Smart. Efficient. Reliable.</h2>
+            <div class="video-container">
+                <video controls poster="assets/video/poster.jpg">
+                    <source src="assets/video/video1.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </div>
-            <div class="spline-description">
-                <h3>Innovative Poultry Management</h3>
-                <p>Experience the future of poultry farming with our interactive 3D interface. Just like this egg, our system helps you nurture and monitor your flock with cutting-edge technology.</p>
-                <p>Scan, track, and manage your poultry operations with precision and ease.</p>
+            <div class="video-description">
+                <h3>About FeatherTech App</h3>
+                <p>FeatherTech Poultry Management System helps caretakers/owner monitor and manage chicks, hens, and roosters in real time through QR code tracking and weather updates/send vaccination task, anytime and anywhere.</p>
             </div>
         </section>
 
@@ -483,7 +480,7 @@
             <div class="feature">
                 <i class="fas fa-qrcode"></i>
                 <h3>QR Code System</h3>
-                <p>Easily update/track vaccinations and individual chicken data with our QR code system.</p>
+                <p>Easily update/send vaccinations task and individual chicken data with our QR code system.</p>
             </div>
             <div class="feature">
                 <i class="fas fa-cloud-sun"></i>

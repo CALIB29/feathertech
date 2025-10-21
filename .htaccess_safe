@@ -57,11 +57,10 @@ AddDefaultCharset UTF-8
 # PHP settings (these may not work on all hosts - contact support if needed)
 <IfModule mod_php.c>
     # Try to set PHP limits (may require host intervention)
-    php_value upload_max_filesize 500M
-    php_value post_max_size 550M
-    php_value memory_limit 1024M
-    php_value max_execution_time 600
-    php_value max_input_time 600
+    php_value upload_max_filesize 50M
+    php_value post_max_size 55M
+    php_value memory_limit 128M
+    php_value max_execution_time 300
 </IfModule>
 
 # For debugging - remove in production

@@ -6,27 +6,26 @@ require_once 'includes/auth.php';
 
 // Only allow admins to access this page
 if (!isset($_SESSION['user_id']) || ($_SESSION['role'] ?? '') !== 'admin') {
-    echo '<div class="container mt-5"><div class="alert alert-danger">🚫 You do not have permission to access this page.</div></div>';
+    echo '<div class="container mt-5"><div class="alert alert-danger">ðŸš« You do not have permission to access this page.</div></div>';
     exit();
 }
 
 $admin_id = $_SESSION['user_id'];
 
 // Fetch vaccination tasks assigned to this admin
+$stmt = $pdo->prepare("SELECT vt.*, a.type AS animal_type, a.breed, a.mark, a.id AS animal_id, 
+                              u.username AS assigned_by_name
+                       FROM vaccination_tasks vt
+                       JOIN animals a ON vt.animal_id = a.id
+                       JOIN users u ON vt.assigned_by = u.id
+                       WHERE vt.assigned_to = :admin_id
+                       ORDER BY vt.id DESC");
+$stmt->execute([':admin_id' => $admin_id]);
+$tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Also fetch admin messages (legacy tasks)
 require_once 'includes/admin_messages.php';
-$adminMessages = getAdminMessages($pdo, $admin_id, 'admin');
-
-// Fetch vaccination tasks assigned to this admin (new system)
-$stmt = $pdo->prepare("SELECT vt.*, a.type AS animal_type, a.breed, a.mark, a.id AS animal_id, u.username AS assigned_by
-    FROM vaccination_tasks vt
-    JOIN animals a ON vt.animal_id = a.id
-    JOIN users u ON vt.assigned_by = u.id
-    WHERE vt.assigned_to = :admin_id
-    ORDER BY vt.due_date ASC");
-$stmt->execute([':admin_id' => $admin_id]);
-$tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$adminMessages = getAdminMessages($pdo, $admin_id, 'pending');
 
 ?>
 <!DOCTYPE html>
@@ -51,11 +50,21 @@ $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
         .status-completed { background: #d4edda; color: #155724; }
         .status-overdue { background: #f8d7da; color: #721c24; }
         .proof-img { max-width: 120px; border-radius: 8px; border: 1px solid #eee; }
+        .urgent { border-left: 4px solid #e53935; }
+        .qr-scanner-btn { background: linear-gradient(45deg, #667eea 0%, #764ba2 100%); color: white; }
     </style>
 </head>
 <body>
     <div class="container py-4">
-        <h3 class="mb-4"><i class="fas fa-tasks me-2"></i> Vaccination Tasks</h3>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="mb-0"><i class="fas fa-tasks me-2"></i> Vaccination Tasks</h3>
+            <div>
+                <a href="dashboard.php" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-1"></i> Back to Dashboard
+                </a>
+            </div>
+        </div>
+        
         <?php if (empty($tasks) && empty($adminMessages)): ?>
             <div class="alert alert-info text-center">
                 <i class="fas fa-check-circle fa-2x mb-2" style="color:#43a047;"></i><br>
@@ -63,7 +72,9 @@ $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
         <?php endif; ?>
 
+        <!-- Current Vaccination Tasks -->
         <?php if (!empty($tasks)): ?>
+            <h4 class="mb-3"><i class="fas fa-syringe me-2"></i> Current Vaccination Tasks</h4>
             <?php foreach ($tasks as $task): ?>
                 <?php
                 $badgeClass = 'badge-chick';
@@ -72,103 +83,129 @@ $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     case 'rooster': $badgeClass = 'badge-rooster'; break;
                     case 'hen': $badgeClass = 'badge-hen'; break;
                 }
+                
+                // Determine if task is overdue
+                $isOverdue = strtotime($task['due_date']) < time() && $task['status'] === 'pending';
                 $statusClass = 'status-badge status-pending';
-                if ($task['status'] === 'completed') $statusClass = 'status-badge status-completed';
-                elseif ($task['status'] === 'overdue') $statusClass = 'status-badge status-overdue';
+                if ($task['status'] === 'completed') {
+                    $statusClass = 'status-badge status-completed';
+                } elseif ($isOverdue) {
+                    $statusClass = 'status-badge status-overdue';
+                }
                 ?>
-                <div class="task-card">
+                <div class="task-card <?= $isOverdue ? 'urgent' : '' ?>">
                     <div class="task-header d-flex justify-content-between align-items-center">
-                        <span><i class="fas fa-syringe me-2"></i> <?= htmlspecialchars($task['vaccine_name']) ?></span>
+                        <span><i class="fas fa-syringe me-2"></i> <?= htmlspecialchars($task['vaccine_type']) ?></span>
                         <span class="badge <?= $badgeClass ?> ms-2"><?= htmlspecialchars(ucfirst($task['animal_type'])) ?> #<?= $task['animal_id'] ?></span>
                     </div>
                     <div class="task-body">
-                        <div class="mb-2">
-                            <strong>Due Date:</strong> <?= date('M j, Y', strtotime($task['due_date'])) ?>
-                            <?php if ($task['status'] === 'overdue'): ?>
-                                <span class="badge status-badge status-overdue ms-2">OVERDUE</span>
-                            <?php elseif ($task['status'] === 'pending'): ?>
-                                <span class="badge status-badge status-pending ms-2">Pending</span>
-                            <?php elseif ($task['status'] === 'completed'): ?>
-                                <span class="badge status-badge status-completed ms-2">Completed</span>
-                            <?php endif; ?>
-                        </div>
-                        <div class="mb-2">
-                            <strong>Assigned By:</strong> <?= htmlspecialchars($task['assigned_by']) ?>
-                        </div>
-                        <div class="mb-2">
-                            <strong>Breed:</strong> <?= htmlspecialchars($task['breed']) ?> | <strong>Mark:</strong> <?= htmlspecialchars($task['mark']) ?>
-                        </div>
-                        <div class="mb-2">
-                            <strong>Recommended Vaccine:</strong> <?= htmlspecialchars($task['recommended_vaccine']) ?>
-                        </div>
-                        <div class="mb-2">
-                            <strong>Notes:</strong> <?= htmlspecialchars($task['notes']) ?>
-                        </div>
-                        <?php if ($task['status'] === 'pending'): ?>
-                            <form action="complete_task.php" method="POST" enctype="multipart/form-data" class="mt-3">
-                                <input type="hidden" name="task_id" value="<?= $task['id'] ?>">
+                        <div class="row">
+                            <div class="col-md-6">
                                 <div class="mb-2">
-                                    <label for="proof_<?= $task['id'] ?>" class="form-label">Upload Proof (photo):</label>
-                                    <input type="file" name="proof" id="proof_<?= $task['id'] ?>" class="form-control" accept="image/*" required>
+                                    <strong>Animal Type:</strong> <?= htmlspecialchars($task['animal_type']) ?>
                                 </div>
-                                <button type="submit" class="btn btn-success">
-                                    <i class="fas fa-check-circle me-1"></i> Mark as Completed
-                                </button>
-                            </form>
-                        <?php elseif (!empty($task['proof_path'])): ?>
-                            <div class="mb-2">
-                                <strong>Proof:</strong><br>
-                                <img src="<?= htmlspecialchars($task['proof_path']) ?>" class="proof-img" alt="Proof Image">
+                                <div class="mb-2">
+                                    <strong>Vaccine Type:</strong> <?= htmlspecialchars($task['vaccine_type']) ?>
+                                </div>
+                                <div class="mb-2">
+                                    <strong>Due Date:</strong> <?= date('M j, Y', strtotime($task['due_date'])) ?>
+                                    <span class="badge <?= $statusClass ?> ms-2">
+                                        <?= $isOverdue ? 'OVERDUE' : ucfirst($task['status']) ?>
+                                    </span>
+                                </div>
+                                <div class="mb-2">
+                                    <strong>Assigned By:</strong> <?= htmlspecialchars($task['assigned_by_name']) ?>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-2">
+                                    <strong>Breed:</strong> <?= htmlspecialchars($task['breed']) ?> 
+                                    <?php if (!empty($task['mark'])): ?>
+                                        | <strong>Mark:</strong> <?= htmlspecialchars($task['mark']) ?>
+                                    <?php endif; ?>
+                                </div>
+                                <?php if (!empty($task['notes'])): ?>
+                                    <div class="mb-2">
+                                        <strong>Notes:</strong> <?= htmlspecialchars($task['notes']) ?>
+                                    </div>
+                                <?php endif; ?>
+                                
+                                <?php if ($task['status'] === 'completed' && !empty($task['proof_image'])): ?>
+                                    <div class="mb-2">
+                                        <strong>Proof:</strong><br>
+                                        <img src="<?= htmlspecialchars($task['proof_image']) ?>" class="proof-img mt-1" alt="Proof Image">
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        
+                        <?php if ($task['status'] !== 'completed'): ?>
+                            <div class="mt-3 p-3 bg-light rounded">
+                                <h5 class="mb-3"><i class="fas fa-check-circle me-1"></i> Complete This Task</h5>
+                                
+                                <div class="d-flex flex-wrap gap-2 mb-3">
+                                    <a href="scan_qr.php?task_id=<?= $task['id'] ?>" class="btn qr-scanner-btn w-100">
+                                        <i class="fas fa-qrcode me-1"></i> Scan QR Code to Complete Task
+                                    </a>
+                                </div>
+                                
+                                <?php if ($isOverdue): ?>
+                                    <div class="alert alert-warning mt-2 mb-0">
+                                        <i class="fas fa-exclamation-triangle me-1"></i> This task is overdue! Please complete it as soon as possible.
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                            
+                        <?php elseif ($task['status'] === 'completed'): ?>
+                            <div class="alert alert-success mt-3">
+                                <i class="fas fa-check-circle me-1"></i> Completed on 
+                                <?= !empty($task['completed_date']) ? date('M j, Y', strtotime($task['completed_date'])) : 'Unknown date' ?>
                             </div>
                         <?php endif; ?>
                     </div>
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>
-
-        <?php if (!empty($adminMessages)): ?>
-            <h4 class="mt-5 mb-3"><i class="fas fa-envelope me-2"></i> Admin Messages / Legacy Tasks</h4>
-            <?php foreach ($adminMessages as $msg): ?>
-                <div class="task-card">
-                    <div class="task-header d-flex justify-content-between align-items-center">
-                        <span><i class="fas fa-envelope me-2"></i> <?= htmlspecialchars($msg['task_type'] ?? 'Message') ?></span>
-                        <span class="badge badge-chick ms-2">Message #<?= $msg['id'] ?></span>
-                    </div>
-                    <div class="task-body">
-                        <div class="mb-2">
-                            <strong>From:</strong> <?= htmlspecialchars($msg['sender_name'] ?? 'Super Admin') ?>
-                        </div>
-                        <div class="mb-2">
-                            <strong>Due Date:</strong> <?= !empty($msg['due_date']) ? date('M j, Y', strtotime($msg['due_date'])) : 'N/A' ?>
-                        </div>
-                        <div class="mb-2">
-                            <strong>Message:</strong> <?= htmlspecialchars($msg['message']) ?>
-                        </div>
-                        <div class="mb-2">
-                            <strong>Status:</strong> <span class="badge <?= ($msg['status'] === 'completed') ? 'status-completed' : 'status-pending' ?>"><?= ucfirst($msg['status']) ?></span>
-                        </div>
-                        <?php if ($msg['status'] === 'pending'): ?>
-                            <form action="complete_task.php" method="POST" enctype="multipart/form-data" class="mt-3">
-                                <input type="hidden" name="message_id" value="<?= $msg['id'] ?>">
-                                <div class="mb-2">
-                                    <label for="proof_msg_<?= $msg['id'] ?>" class="form-label">Upload Proof (photo):</label>
-                                    <input type="file" name="proof" id="proof_msg_<?= $msg['id'] ?>" class="form-control" accept="image/*" required>
-                                </div>
-                                <button type="submit" class="btn btn-success">
-                                    <i class="fas fa-check-circle me-1"></i> Mark as Completed
-                                </button>
-                            </form>
-                        <?php elseif (!empty($msg['proof'])): ?>
-                            <div class="mb-2">
-                                <strong>Proof:</strong><br>
-                                <img src="<?= htmlspecialchars($msg['proof']) ?>" class="proof-img" alt="Proof Image">
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
-        <a href="dashboard.php" class="btn btn-secondary mt-3"><i class="fas fa-arrow-left me-1"></i> Back to Dashboard</a>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    // Add this to your existing JavaScript
+    function handleTaskCompletion(form) {
+        const formData = new FormData(form);
+        
+        fetch('complete_task.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                if (data.redirect) {
+                    // Redirect to vaccination history page
+                    window.location.href = data.redirect;
+                } else {
+                    // Show success message and reload
+                    alert('Task completed successfully!');
+                    window.location.reload();
+                }
+            } else {
+                alert('Error: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+        });
+    }
+
+    // Update your form submission handlers to use this function
+    document.querySelectorAll('form[action="complete_task.php"]').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            handleTaskCompletion(this);
+        });
+    });
+    </script>
 </body>
 </html>
